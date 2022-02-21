@@ -1,6 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { UserContext } from '../Context/userContext'
 
 export default function SignUpModal() {
+
+//   const {modalState, toggleModals} = useContext(UserContext)
+//   console.log(modalState, toggleModals)
+
   return (
         <div className="position-fixed top-0 vw-100 vh-100">
           <div
