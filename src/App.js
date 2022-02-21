@@ -1,8 +1,10 @@
-
+import "./App.css"
 
 function App() {
   return (
-    <div></div>
+    <div className="App">
+      <h1 className="display-1">Bootstarp !</h1>
+    </div>
   );
 }
 
