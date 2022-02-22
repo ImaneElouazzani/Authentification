@@ -1,17 +1,28 @@
-import React, {useContext} from 'react'
+import React, {useContext, useRef, useState} from 'react'
 import { UserContext } from '../Context/userContext'
 
 export default function SignUpModal() {
 
   const {modalState, toggleModals} = useContext(UserContext)
-//   console.log(modalState, toggleModals)
+
+  const inputs = useRef([])
+  const addInputs = (el) => {
+      if(el && !inputs.includes(el)){
+          inputs.current.push(el)
+      }
+  }
+
+  const handleForm = e => {
+      e.preventDefault()
+      console.log(inputs)
+  }
 
   return (
 <>
   { modalState.signUpModal && (
         <div className="position-fixed top-0 vw-100 vh-100">
           <div
-          
+          onClick={() => toggleModals("close")}
           className="w-100 h-100 bg-dark bg-opacity-75">
           </div>
             <div
@@ -23,20 +34,20 @@ export default function SignUpModal() {
                   <div className="modal-header">
                     <h5 className="modal-title">Sign Up</h5>
                     <button 
-                    
+                    onClick={() => toggleModals("close")}
                     className="btn-close"></button>
                   </div>
 
                   <div className="modal-body">
                     <form 
-                    
+                    onSubmit={handleForm}
                     className="sign-up-form">
                       <div className="mb-3">
                         <label htmlFor="signUpEmail" className="form-label">
                           Email adress
                         </label>
                         <input
-                          
+                          ref={addInputs}
                           name="email"
                           required
                           type="email"
@@ -50,7 +61,7 @@ export default function SignUpModal() {
                           Password
                         </label>
                         <input
-                          
+                          ref={addInputs}
                           name="pwd"
                           required
                           type="password"
@@ -64,7 +75,7 @@ export default function SignUpModal() {
                           Repeat Password
                         </label>
                         <input
-                          
+                          ref={addInputs}
                           name="pwd"
                           required
                           type="password"
