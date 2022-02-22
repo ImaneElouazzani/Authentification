@@ -32,7 +32,7 @@ export function UserContextProvider(props) {
 
     return (
         <UserContext.Provider value={{modalState, toggleModals}}>
-            {props.childen}
+            {props.children}
         </UserContext.Provider>
     )
 }
