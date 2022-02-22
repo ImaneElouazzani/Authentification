@@ -3,18 +3,39 @@ import { UserContext } from '../Context/userContext'
 
 export default function SignUpModal() {
 
-  const {modalState, toggleModals} = useContext(UserContext)
+  const {modalState, toggleModals, signUp} = useContext(UserContext)
+
+  const [validation, setValidation] = useState("")
 
   const inputs = useRef([])
   const addInputs = (el) => {
-      if(el && !inputs.includes(el)){
+      if(el && !inputs.current.includes(el)){
           inputs.current.push(el)
       }
   }
+  const formRef = useRef()
 
-  const handleForm = e => {
+  const handleForm = async (e) => {
       e.preventDefault()
-      console.log(inputs)
+      if((inputs.current[1].value.length || inputs.current[2].value.length) < 6){
+          setValidation("6 characters min")
+          return
+      }
+      else if(inputs.current[1].value !== inputs.current[2].value){
+          setValidation("Passwords do not match")
+          return
+      }
+
+      try {
+        const cred = await signUp(
+            inputs.current[0].value,
+            inputs.current[1].value
+        )
+        formRef.current.reset()
+        setValidation("")
+      } catch (err) {
+
+      }
   }
 
   return (
@@ -41,7 +62,8 @@ export default function SignUpModal() {
                   <div className="modal-body">
                     <form 
                     onSubmit={handleForm}
-                    className="sign-up-form">
+                    className="sign-up-form"
+                    ref={formRef}>
                       <div className="mb-3">
                         <label htmlFor="signUpEmail" className="form-label">
                           Email adress
@@ -82,7 +104,7 @@ export default function SignUpModal() {
                           className="form-control"
                           id="repeatPwd"
                         />
-                        <p className="text-danger mt-1">validation</p>
+                        <p className="text-danger mt-1">{validation}</p>
                       </div>
 
                       <button className="btn btn-primary">Submit</button>
