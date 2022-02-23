@@ -11,6 +11,7 @@ export function UserContextProvider(props) {
     const [loadingData, setLoadingData] = useState(true)
 
     const signUp = (email, pwd) => createUserWithEmailAndPassword(auth, email, pwd)
+    const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -48,7 +49,7 @@ export function UserContextProvider(props) {
     }
 
     return (
-        <UserContext.Provider value={{modalState, toggleModals, signUp, currentUser}}>
+        <UserContext.Provider value={{modalState, toggleModals, signUp, currentUser, signIn}}>
             {!loadingData && props.children}
         </UserContext.Provider>
     )

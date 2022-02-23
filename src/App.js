@@ -5,11 +5,13 @@ import Navbar from "./Components/Navbar";
 import SignUpModal from "./Components/SignUpModal";
 import PrivateHome from "./Pages/Private/PrivateHome/PrivateHome";
 import Private from "./Pages/Private/Private"
+import SignInModal from "./Components/SignInModal";
 
 function App() {
   return (
     <>
       <SignUpModal/>
+      <SignInModal/>
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>} />
