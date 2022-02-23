@@ -1,5 +1,6 @@
 import React, {useContext, useRef, useState} from 'react'
 import { UserContext } from '../Context/userContext'
+import { useNavigate } from 'react-router'
 
 export default function SignUpModal() {
 
@@ -14,6 +15,8 @@ export default function SignUpModal() {
       }
   }
   const formRef = useRef()
+
+  const navigate = useNavigate()
 
   const handleForm = async (e) => {
       e.preventDefault()
@@ -33,6 +36,8 @@ export default function SignUpModal() {
         )
         formRef.current.reset()
         setValidation("")
+        toggleModals("close")
+        navigate("/private/private-home")
       } catch (err) {
         if(err.code === "auth/invalid-email") {
             setValidation("Email format invalid")
